@@ -40,10 +40,10 @@ public class JdbcTemplatePostRepository implements PostRepository{
     }
 
     @Override
-    public Optional<Post> findById(Long id) {
+    public Post findById(Long id) {
         final String sql = "select * from post where id = ?";
-        List<Post> result = jdbcTemplate.query(sql, postRowMapper(), id);
-        return result.stream().findAny();
+        Post result = jdbcTemplate.queryForObject(sql, postRowMapper(), id);
+        return result;
     }
 
 

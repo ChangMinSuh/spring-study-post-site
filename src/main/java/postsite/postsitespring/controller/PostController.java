@@ -43,7 +43,7 @@ public class PostController {
     }
 
     @GetMapping("/detail")
-    public Optional<Post> articleDetail(
+    public Post articleDetail(
             @RequestParam() Long id
     ) {
         return postService.findById(id);

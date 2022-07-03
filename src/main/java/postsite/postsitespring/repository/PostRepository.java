@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface PostRepository {
     Post save(ArticleDoWriteDto body);
-    Optional<Post> findById(Long id);
+    Post findById(Long id);
     List<Post> findAll(Long boardId,Long page);
     List<Post> findAll(Long boardId,Long page, String searchKeyword);
     void update(ArticleDoUpdateDto body);

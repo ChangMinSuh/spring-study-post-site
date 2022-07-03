@@ -28,14 +28,16 @@ public class PostService {
     }
 
     // 해당 post 조회
-    public Optional<Post> findById(Long id){
+    public Post findById(Long id){
         return postRepository.findById(id);
     }
 
+    // post update
     public void update(ArticleDoUpdateDto body){
         postRepository.update(body);
     }
 
+    //post delete
     public void delete(Long postId){
         postRepository.delete(postId);
     }
