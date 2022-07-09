@@ -1,11 +1,10 @@
-package postsite.postsitespring.repository;
+package postsite.postsitespring.domain.post.repository;
 
-import postsite.postsitespring.domain.Post;
-import postsite.postsitespring.dto.ArticleDoUpdateDto;
-import postsite.postsitespring.dto.ArticleDoWriteDto;
+import postsite.postsitespring.domain.post.dto.ArticleDoUpdateDto;
+import postsite.postsitespring.domain.post.domain.Post;
+import postsite.postsitespring.domain.post.dto.ArticleDoWriteDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PostRepository {
     Post save(ArticleDoWriteDto body);

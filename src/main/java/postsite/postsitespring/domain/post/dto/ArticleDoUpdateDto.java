@@ -1,9 +1,13 @@
-package postsite.postsitespring.dto;
+package postsite.postsitespring.domain.post.dto;
 
-public class ArticleDoWriteDto {
-    // private Long boardId;
+public class ArticleDoUpdateDto {
+    private String id;
     private String title;
     private String body;
+
+    public String getId(){
+        return id;
+    }
 
     public String getTitle() {
         return title;

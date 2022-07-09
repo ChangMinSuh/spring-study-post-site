@@ -1,15 +1,13 @@
-package postsite.postsitespring.controller;
+package postsite.postsitespring.domain.post;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import postsite.postsitespring.domain.Post;
-import postsite.postsitespring.dto.ArticleDoUpdateDto;
-import postsite.postsitespring.dto.ArticleDoWriteDto;
-import postsite.postsitespring.service.PostService;
+import postsite.postsitespring.domain.post.domain.Post;
+import postsite.postsitespring.domain.post.dto.ArticleDoUpdateDto;
+import postsite.postsitespring.domain.post.dto.ArticleDoWriteDto;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 
 @RestController

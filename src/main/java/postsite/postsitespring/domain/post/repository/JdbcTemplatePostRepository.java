@@ -1,19 +1,18 @@
-package postsite.postsitespring.repository;
+package postsite.postsitespring.domain.post.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import postsite.postsitespring.domain.Post;
-import postsite.postsitespring.dto.ArticleDoUpdateDto;
-import postsite.postsitespring.dto.ArticleDoWriteDto;
+import postsite.postsitespring.domain.post.dto.ArticleDoUpdateDto;
+import postsite.postsitespring.domain.post.domain.Post;
+import postsite.postsitespring.domain.post.dto.ArticleDoWriteDto;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class JdbcTemplatePostRepository implements PostRepository{
 
@@ -52,6 +51,8 @@ public class JdbcTemplatePostRepository implements PostRepository{
         final String sql = "SELECT * FROM post ORDER BY id DESC LIMIT 10 OFFSET " + page ;
         return jdbcTemplate.query(sql, postRowMapper());
     }
+
+    @Override
     public List<Post> findAll(Long boardId, Long page, String searchKeyword) {
         final String sql = "SELECT * FROM post WHERE title LIKE \'%" + searchKeyword + "%\' ORDER BY id DESC LIMIT 10 OFFSET " + page  ;
         return jdbcTemplate.query(sql, postRowMapper());

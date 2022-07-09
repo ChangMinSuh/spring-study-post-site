@@ -1,12 +1,11 @@
-package postsite.postsitespring.service;
+package postsite.postsitespring.domain.post;
 
-import postsite.postsitespring.domain.Post;
-import postsite.postsitespring.dto.ArticleDoUpdateDto;
-import postsite.postsitespring.dto.ArticleDoWriteDto;
-import postsite.postsitespring.repository.PostRepository;
+import postsite.postsitespring.domain.post.dto.ArticleDoUpdateDto;
+import postsite.postsitespring.domain.post.domain.Post;
+import postsite.postsitespring.domain.post.dto.ArticleDoWriteDto;
+import postsite.postsitespring.domain.post.repository.PostRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public class PostService {
     private final PostRepository postRepository;
