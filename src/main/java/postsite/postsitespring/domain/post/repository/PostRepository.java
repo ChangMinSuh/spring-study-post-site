@@ -11,7 +11,7 @@ public interface PostRepository {
     Post findById(Long id);
     List<Post> findAll(Long boardId,Long page);
     List<Post> findAll(Long boardId,Long page, String searchKeyword);
-    void update(ArticleDoUpdateDto body);
+    void update(Long id, ArticleDoUpdateDto body);
     void delete(Long id);
 }
 

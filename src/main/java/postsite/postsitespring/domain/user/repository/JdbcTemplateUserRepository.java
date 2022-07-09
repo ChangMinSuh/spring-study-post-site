@@ -26,7 +26,7 @@ public class JdbcTemplateUserRepository implements UserRepository{
         Map<String, Object> params = new HashMap<>();
         params.put("loginId", body.getLoginId());
         params.put("loginPw", body.getLoginPw());
-        System.out.println(params);
+
         Long id = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(params)).longValue();
 
         return new User(id, body.getLoginId(), body.getLoginPw());

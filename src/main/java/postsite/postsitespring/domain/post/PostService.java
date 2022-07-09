@@ -32,12 +32,12 @@ public class PostService {
     }
 
     // post update
-    public void update(ArticleDoUpdateDto body){
-        postRepository.update(body);
+    public void update(Long id, ArticleDoUpdateDto body){
+        postRepository.update(id, body);
     }
 
     //post delete
-    public void delete(Long postId){
-        postRepository.delete(postId);
+    public void delete(Long id){
+        postRepository.delete(id);
     }
 }

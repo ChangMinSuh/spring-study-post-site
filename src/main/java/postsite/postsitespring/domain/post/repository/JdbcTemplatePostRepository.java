@@ -24,18 +24,15 @@ public class JdbcTemplatePostRepository implements PostRepository{
 
     @Override
     public Post save(ArticleDoWriteDto body) {
-        ObjectMapper objectMapper = new ObjectMapper();
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
         jdbcInsert.withTableName("post").usingGeneratedKeyColumns("id");
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("title", body.getTitle());
-        parameters.put("content", body.getBody());
+        parameters.put("content", body.getContent());
 
-        Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-        // map => Post
-        Post post = objectMapper.convertValue(parameters,Post.class);
-        post.setId(key.longValue());
-        return post;
+        Long id = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters)).longValue();
+
+        return new Post(id, body.getTitle(),body.getContent());
     }
 
     @Override
@@ -48,26 +45,26 @@ public class JdbcTemplatePostRepository implements PostRepository{
 
     @Override
     public List<Post> findAll(Long boardId, Long page) {
-        final String sql = "SELECT * FROM post ORDER BY id DESC LIMIT 10 OFFSET " + page ;
-        return jdbcTemplate.query(sql, postRowMapper());
+        final String sql = "SELECT * FROM post ORDER BY id DESC LIMIT ? OFFSET ?" ;
+        return jdbcTemplate.query(sql, postRowMapper(),10,page);
     }
 
     @Override
     public List<Post> findAll(Long boardId, Long page, String searchKeyword) {
-        final String sql = "SELECT * FROM post WHERE title LIKE \'%" + searchKeyword + "%\' ORDER BY id DESC LIMIT 10 OFFSET " + page  ;
-        return jdbcTemplate.query(sql, postRowMapper());
+        final String sql = "SELECT * FROM post WHERE title LIKE ? ORDER BY id DESC LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, postRowMapper(),'%' + searchKeyword + '%', 10, page);
     }
 
     @Override
-    public void update(ArticleDoUpdateDto body) {
-        final String sql = "UPDATE post SET title=\'" + body.getTitle() + "\', content=\'" + body.getBody() + "\' WHERE id=" + body.getId();
-        jdbcTemplate.update(sql);
+    public void update(Long id, ArticleDoUpdateDto body) {
+        final String sql = "UPDATE post SET title=?, content=? WHERE id=?";
+        jdbcTemplate.update(sql, body.getTitle(), body.getContent(), id);
     }
 
     @Override
     public void delete(Long id) {
-        final String sql = "DELETE FROM post WHERE id =" + id;
-        jdbcTemplate.update(sql);
+        final String sql = "DELETE FROM post WHERE id =?";
+        jdbcTemplate.update(sql, id);
     }
 
     private RowMapper<Post> postRowMapper(){

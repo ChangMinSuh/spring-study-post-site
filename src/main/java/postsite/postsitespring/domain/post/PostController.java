@@ -21,7 +21,7 @@ public class PostController {
         this.postService = postService;
     }
 
-    @PostMapping("/doWrite")
+    @PostMapping()
     public Post articleDoWrite(
             @RequestBody ArticleDoWriteDto body
             ) {
@@ -29,7 +29,7 @@ public class PostController {
     }
 
 
-    @GetMapping("/list")
+    @GetMapping("")
     public List<Post> articleList(
             @RequestParam() Long boardId,
             @RequestParam(defaultValue = "0") Long page,
@@ -40,28 +40,29 @@ public class PostController {
                 postService.findAll(boardId, page, searchKeyword);
     }
 
-    @GetMapping("/detail")
+    @GetMapping("/{articleId}")
     public Post articleDetail(
-            @RequestParam() Long id
+            @PathVariable() Long articleId
     ) {
-        return postService.findById(id);
+        return postService.findById(articleId);
     }
 
     // put이 더 좋음.
-    @PostMapping("/doModify")
+    @PatchMapping("/{atricleId}")
     public String articleModify(
+            @PathVariable Long atricleId,
             @RequestBody ArticleDoUpdateDto body
             ) {
-        postService.update(body);
+        postService.update(atricleId, body);
         return "success";
     }
 
-    @DeleteMapping("/{postId}")
+    @DeleteMapping("/{atricleId}")
     public String deleteArticle(
-            @PathVariable Long postId
+            @PathVariable Long atricleId
     ) {
         //postService
-        postService.delete(postId);
+        postService.delete(atricleId);
         return "success";
     }
 
